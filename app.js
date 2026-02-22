@@ -70,6 +70,7 @@ class LaptopStore {
         this.laptops = laptopsData;
         this.filteredLaptops = [...this.laptops];
         this.favorites = new Set();
+        this.compareList = [];
         this.currentView = 'cards';
         this.currentLang = 'ar';
         this.currentTheme = 'dark';
@@ -336,6 +337,9 @@ class LaptopStore {
                             <button class="btn-action favorite ${this.favorites.has(laptop.id) ? 'active' : ''}" data-id="${laptop.id}">
                                 <i class="fas fa-heart"></i>
                             </button>
+                            <button class="btn-action compare ${this.compareList.includes(laptop.id) ? 'active' : ''}" data-id="${laptop.id}">
+                                <i class="fas fa-balance-scale"></i>
+                            </button>
                             <button class="btn-action details" data-id="${laptop.id}">
                                 <i class="fas fa-info-circle"></i>
                             </button>
@@ -376,6 +380,7 @@ class LaptopStore {
                             <td class="price">$${laptop.price}</td>
                             <td class="actions">
                                 <button class="btn-action favorite ${this.favorites.has(laptop.id) ? 'active' : ''}" data-id="${laptop.id}"><i class="fas fa-heart"></i></button>
+                                <button class="btn-action compare ${this.compareList.includes(laptop.id) ? 'active' : ''}" data-id="${laptop.id}"><i class="fas fa-balance-scale"></i></button>
                                 <button class="btn-action details" data-id="${laptop.id}"><i class="fas fa-info-circle"></i></button>
                             </td>
                         </tr>
@@ -414,6 +419,14 @@ class LaptopStore {
                 this.toggleFavorite(id, btn);
             });
         });
+
+        document.querySelectorAll('.btn-action.compare').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = parseInt(btn.dataset.id);
+                this.toggleCompare(id, btn);
+            });
+        });
     }
 
     toggleFavorite(id, btn) {
@@ -428,10 +441,45 @@ class LaptopStore {
         }
     }
 
+    toggleCompare(id, btn) {
+        const index = this.compareList.indexOf(id);
+        if (index > -1) {
+            this.compareList.splice(index, 1);
+            btn.classList.remove('active');
+            this.showToast('تمت إزالة الجهاز من المقارنة', 'info');
+        } else {
+            if (this.compareList.length >= 2) {
+                this.showToast('يمكنك مقارنة جهازين فقط في كل مرة', 'info');
+                return;
+            }
+            this.compareList.push(id);
+            btn.classList.add('active');
+            this.showToast('تمت إضافة الجهاز للمقارنة', 'success');
+        }
+        this.updateCompareButton();
+    }
+
+    updateCompareButton() {
+        const compareBtn = document.getElementById('compare-btn');
+        if (compareBtn) {
+            compareBtn.style.display = this.compareList.length > 0 ? 'flex' : 'none';
+            compareBtn.textContent = this.currentLang === 'ar' 
+                ? `مقارنة (${this.compareList.length})` 
+                : `Compare (${this.compareList.length})`;
+        }
+    }
+
     initModal() {
         const modal = document.getElementById('product-modal');
         document.getElementById('modal-close').addEventListener('click', () => modal.classList.remove('active'));
         modal.querySelector('.modal-backdrop').addEventListener('click', () => modal.classList.remove('active'));
+
+        const compareModal = document.getElementById('compare-modal');
+        document.getElementById('compare-modal-close').addEventListener('click', () => compareModal.classList.remove('active'));
+        compareModal.querySelector('.modal-backdrop').addEventListener('click', () => compareModal.classList.remove('active'));
+
+        const compareBtn = document.getElementById('compare-btn');
+        compareBtn.addEventListener('click', () => this.openCompareModal());
     }
 
     openModal(laptop) {
@@ -488,6 +536,132 @@ class LaptopStore {
             </div>
         `;
         document.getElementById('product-modal').classList.add('active');
+    }
+
+    openCompareModal() {
+        if (this.compareList.length < 2) {
+            this.showToast('يرجى اختيار جهازين للمقارنة', 'info');
+            return;
+        }
+
+        const laptop1 = this.laptops.find(l => l.id === this.compareList[0]);
+        const laptop2 = this.laptops.find(l => l.id === this.compareList[1]);
+
+        const modalBody = document.getElementById('compare-modal-body');
+        modalBody.innerHTML = `
+            <div class="compare-grid">
+                <div class="compare-product">
+                    <div class="compare-product-image">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="compare-product-name">${laptop1.name}</div>
+                    <div class="compare-product-brand">${laptop1.brand}</div>
+                    <div class="compare-product-price">$${laptop1.price}</div>
+                    <div class="compare-specs">
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">المعالج</span>
+                            <span class="compare-spec-value">${laptop1.cpu}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الجيل</span>
+                            <span class="compare-spec-value">${laptop1.generation}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">كرت الشاشة</span>
+                            <span class="compare-spec-value">${laptop1.gpu}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الذاكرة RAM</span>
+                            <span class="compare-spec-value">${laptop1.ram}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">التخزين</span>
+                            <span class="compare-spec-value">${laptop1.storage}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الشاشة</span>
+                            <span class="compare-spec-value">${laptop1.display}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">اللون</span>
+                            <span class="compare-spec-value">${laptop1.color}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">نظام التشغيل</span>
+                            <span class="compare-spec-value">${laptop1.os}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الفئة</span>
+                            <span class="compare-spec-value">${this.getCategoryName(laptop1.category)}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الكفالة</span>
+                            <span class="compare-spec-value">${laptop1.warranty}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="compare-product">
+                    <div class="compare-product-image">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="compare-product-name">${laptop2.name}</div>
+                    <div class="compare-product-brand">${laptop2.brand}</div>
+                    <div class="compare-product-price">$${laptop2.price}</div>
+                    <div class="compare-specs">
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">المعالج</span>
+                            <span class="compare-spec-value">${laptop2.cpu}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الجيل</span>
+                            <span class="compare-spec-value">${laptop2.generation}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">كرت الشاشة</span>
+                            <span class="compare-spec-value">${laptop2.gpu}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الذاكرة RAM</span>
+                            <span class="compare-spec-value">${laptop2.ram}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">التخزين</span>
+                            <span class="compare-spec-value">${laptop2.storage}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الشاشة</span>
+                            <span class="compare-spec-value">${laptop2.display}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">اللون</span>
+                            <span class="compare-spec-value">${laptop2.color}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">نظام التشغيل</span>
+                            <span class="compare-spec-value">${laptop2.os}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الفئة</span>
+                            <span class="compare-spec-value">${this.getCategoryName(laptop2.category)}</span>
+                        </div>
+                        <div class="compare-spec-row">
+                            <span class="compare-spec-label">الكفالة</span>
+                            <span class="compare-spec-value">${laptop2.warranty}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('compare-modal').classList.add('active');
+    }
+
+    getCategoryName(category) {
+        const categories = {
+            'gaming': this.currentLang === 'ar' ? 'جيمنج' : 'Gaming',
+            'business': this.currentLang === 'ar' ? 'أعمال' : 'Business',
+            'student': this.currentLang === 'ar' ? 'طلاب' : 'Student'
+        };
+        return categories[category] || category;
     }
 
     updateStats() {
