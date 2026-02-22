@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAPTOP KING - معرض الأجهزة الإلكترونية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cursor-follower"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-laptop logo-icon"></i>
+                <div class="logo-text">
+                    <span>LAPTOP KING</span>
+                    <span class="logo-tagline">مع الكفالة الذهبية</span>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a href="#home" class="nav-item active" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text" data-ar="الرئيسية" data-en="Home">الرئيسية</span>
+                </a>
+                <a href="#about" class="nav-item" data-section="about">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="nav-text" data-ar="من نحن" data-en="About">من نحن</span>
+                </a>
+                <a href="#contact" class="nav-item" data-section="contact">
+                    <i class="fas fa-phone-alt"></i>
+                    <span class="nav-text" data-ar="اتصل بنا" data-en="Contact">اتصل بنا</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="تغيير السمة">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="lang-toggle" id="lang-toggle" title="تغيير اللغة">
+                    <span>EN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="matrix-rain"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-ar="أفضل أجهزة اللابتوب" data-en="Best Laptops">أفضل أجهزة اللابتوب</h1>
+            <p class="hero-subtitle" data-ar="مع الكفالة الذهبية - 3 سنوات ضمان"
+                data-en="With Golden Warranty - 3 Years">مع الكفالة الذهبية - 3 سنوات ضمان</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <i class="fas fa-laptop"></i>
+                    <span class="stat-number">64</span>
+                    <span class="stat-label" data-ar="نوع جهاز" data-en="Laptop Models">نوع جهاز</span>
+                </div>
+                <div class="hero-stat">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="stat-number">3</span>
+                    <span class="stat-label" data-ar="سنوات ضمان" data-en="Years Warranty">سنوات ضمان</span>
+                </div>
+                <div class="hero-stat">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label" data-ar="أصلي" data-en="Original">أصلي</span>
+                </div>
+            </div>
+            <a href="#products" class="hero-btn" data-ar="تصفح الأجهزة" data-en="Browse Devices">تصفح الأجهزة</a>
+        </div>
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </section>
+
+    <main class="main-content" id="products">
+        <div class="content-header">
+            <div class="search-bar">
+                <input type="text" class="search-input" id="search-input" placeholder="ابحث عن جهاز..."
+                    data-placeholder-ar="ابحث عن جهاز..." data-placeholder-en="Search for a device...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="view-controls">
+                <div class="filter-group">
+                    <select class="filter-select" id="brand-filter">
+                        <option value="" data-ar="الكل - الماركة" data-en="All - Brand">الكل - الماركة</option>
+                        <option value="ASUS">ASUS</option>
+                        <option value="Dell">Dell</option>
+                        <option value="HP">HP</option>
+                        <option value="Lenovo">Lenovo</option>
+                        <option value="Acer">Acer</option>
+                        <option value="MSI">MSI</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="cards" title="عرض البطاقات">▦</button>
+                    <button class="view-btn" data-view="table" title="عرض الجدول">☰</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters-bar" id="filters-bar">
+            <div class="filter-chips">
+                <button class="filter-chip active" data-filter="all" data-ar="الكل" data-en="All">الكل</button>
+                <button class="filter-chip" data-filter="gaming" data-ar="جيمنج" data-en="Gaming">جيمنج</button>
+                <button class="filter-chip" data-filter="business" data-ar="أعمال" data-en="Business">أعمال</button>
+                <button class="filter-chip" data-filter="student" data-ar="طلاب" data-en="Student">طلاب</button>
+            </div>
+            <div class="price-range">
+                <span class="price-label" data-ar="السعر:" data-en="Price:">السعر:</span>
+                <input type="range" class="price-slider" id="price-slider" min="0" max="4000" value="4000">
+                <span class="price-value" id="price-value">$4000</span>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-value" id="total-count">0</span>
+                <span class="stat-label" data-ar="إجمالي الأجهزة" data-en="Total Devices">إجمالي الأجهزة</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="filtered-count">0</span>
+                <span class="stat-label" data-ar="نتائج البحث" data-en="Search Results">نتائج البحث</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="avg-price">$0</span>
+                <span class="stat-label" data-ar="متوسط السعر" data-en="Average Price">متوسط السعر</span>
+            </div>
+        </div>
+
+        <div class="products-container" id="products-container">
+            <div class="cards-view active" id="cards-view"></div>
+            <div class="table-view" id="table-view"></div>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+            <i class="fas fa-search empty-icon"></i>
+            <h3 data-ar="لم يتم العثور على نتائج" data-en="No results found">لم يتم العثور على نتائج</h3>
+            <p data-ar="جرب تعديل الفلاتر" data-en="Try adjusting the filters">جرب تعديل الفلاتر</p>
+        </div>
+    </main>
+
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2 class="section-title" data-ar="من نحن" data-en="About Us">من نحن</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-building"></i></div>
+                    <h3 data-ar="شركة LAPTOP KING" data-en="LAPTOP KING Company">شركة LAPTOP KING</h3>
+                    <p data-ar="نحن متخصصون في بيع أجهزة اللابتوب الجديدة مع الكفالة الذهبية الشاملة لمدة 3 سنوات. نوفر أفضل الأجهزة من أشهر الماركات العالمية بأسعار تنافسية."
+                        data-en="We specialize in selling new laptops with comprehensive golden warranty for 3 years. We provide the best devices from famous international brands at competitive prices.">
+                        نحن متخصصون في بيع أجهزة اللابتوب الجديدة مع الكفالة الذهبية الشاملة لمدة 3 سنوات. نوفر أفضل
+                        الأجهزة من أشهر الماركات العالمية بأسعار تنافسية.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 data-ar="الكفالة الذهبية" data-en="Golden Warranty">الكفالة الذهبية</h3>
+                    <p data-ar="جميع أجهزتنا تأتي مع كفالة ذهبية شاملة لمدة 3 سنوات تغطي جميع أعطال التصنيع والعيوب."
+                        data-en="All our devices come with a comprehensive 3-year golden warranty covering all manufacturing defects.">
+                        جميع أجهزتنا تأتي مع كفالة ذهبية شاملة لمدة 3 سنوات تغطي جميع أعطال التصنيع والعيوب.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-shipping-fast"></i></div>
+                    <h3 data-ar="توصيل سريع" data-en="Fast Delivery">توصيل سريع</h3>
+                    <p data-ar="نقدم خدمة التوصيل لجميع المناطق مع ضمان سلامة الجهاز أثناء الشحن."
+                        data-en="We provide delivery services to all areas while ensuring device safety during shipping.">
+                        نقدم خدمة التوصيل لجميع المناطق مع ضمان سلامة الجهاز أثناء الشحن.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-headset"></i></div>
+                    <h3 data-ar="دعم فني" data-en="Technical Support">دعم فني</h3>
+                    <p data-ar="فريق دعم فني متخصص جاهز لمساعدتك في أي استفسار أو مشكلة."
+                        data-en="A specialized technical support team ready to help you with any inquiries or issues.">
+                        فريق دعم فني متخصص جاهز لمساعدتك في أي استفسار أو مشكلة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2 class="section-title" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3 data-ar="العنوان" data-en="Address">العنوان</h3>
+                    <p data-ar="دمشق - البحصة - الشارع الرئيسي - مقابل فندق الإيوان - مدخل فندق البرج الذهبي"
+                        data-en="Damascus - Al-Bahsa - Main Street - Opposite Al-Eewan Hotel - Golden Tower Hotel Entrance">
+                        دمشق - البحصة - الشارع الرئيسي - مقابل فندق الإيوان - مدخل فندق البرج الذهبي</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <h3 data-ar="الهاتف" data-en="Phone">الهاتف</h3>
+                    <p>0940065040</p>
+                    <p>011 2322656</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp</h3>
+                    <p>0940065040</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                    <h3 data-ar="أوقات العمل" data-en="Working Hours">أوقات العمل</h3>
+                    <p data-ar="من السبت إلى الخميس" data-en="Saturday to Thursday">من السبت إلى الخميس</p>
+                    <p>9:00 - 20:00</p>
+                </div>
+            </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="fas fa-laptop logo-icon"></i>
+                    <span class="logo-text">LAPTOP KING</span>
+                </div>
+                <p data-ar="أفضل اختيار لأجهزة اللابتوب في سوريا" data-en="Best choice for laptops in Syria">أفضل اختيار
+                    لأجهزة اللابتوب في سوريا</p>
+            </div>
+            <div class="footer-links">
+                <h4 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h4>
+                <a href="#home" data-ar="الرئيسية" data-en="Home"><i class="fas fa-chevron-left"></i> <span
+                        data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+                <a href="#about" data-ar="من نحن" data-en="About"><i class="fas fa-chevron-left"></i> <span
+                        data-ar="من نحن" data-en="About">من نحن</span></a>
+                <a href="#contact" data-ar="اتصل بنا" data-en="Contact"><i class="fas fa-chevron-left"></i> <span
+                        data-ar="اتصل بنا" data-en="Contact">اتصل بنا</span></a>
+            </div>
+            <div class="footer-contact">
+                <h4 data-ar="معلومات الاتصال" data-en="Contact Info">معلومات الاتصال</h4>
+                <p><i class="fas fa-map-marker-alt"></i> <span data-ar="دمشق - البحصة"
+                        data-en="Damascus - Al-Bahsa">دمشق - البحصة</span></p>
+                <p><i class="fas fa-phone-alt"></i> 0940065040</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp: 0940065040</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 LAPTOP KING. <span data-ar="جميع الحقوق محفوظة" data-en="All rights reserved">جميع الحقوق
+                    محفوظة</span></p>
+        </div>
+    </footer>
+
+    <div class="modal" id="product-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
