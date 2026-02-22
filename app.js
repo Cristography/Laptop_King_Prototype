@@ -213,10 +213,16 @@ class LaptopStore {
 
     initFilters() {
         const brandFilter = document.getElementById('brand-filter');
+        const ramFilter = document.getElementById('ram-filter');
+        const storageFilter = document.getElementById('storage-filter');
+        const gpuFilter = document.getElementById('gpu-filter');
         const priceSlider = document.getElementById('price-slider');
         const priceValue = document.getElementById('price-value');
         
         brandFilter.addEventListener('change', () => this.applyFilters());
+        ramFilter.addEventListener('change', () => this.applyFilters());
+        storageFilter.addEventListener('change', () => this.applyFilters());
+        gpuFilter.addEventListener('change', () => this.applyFilters());
         
         priceSlider.addEventListener('input', () => {
             priceValue.textContent = `$${priceSlider.value}`;
@@ -235,6 +241,9 @@ class LaptopStore {
     applyFilters() {
         const searchQuery = document.getElementById('search-input').value.toLowerCase();
         const brand = document.getElementById('brand-filter').value;
+        const ram = document.getElementById('ram-filter').value;
+        const storage = document.getElementById('storage-filter').value;
+        const gpu = document.getElementById('gpu-filter').value;
         const maxPrice = parseInt(document.getElementById('price-slider').value);
         const category = document.querySelector('.filter-chip.active')?.dataset.filter || 'all';
 
@@ -243,10 +252,13 @@ class LaptopStore {
                 laptop.processor.toLowerCase().includes(searchQuery) ||
                 laptop.brand.toLowerCase().includes(searchQuery);
             const matchesBrand = !brand || laptop.brand === brand;
+            const matchesRam = !ram || laptop.ram.includes(ram);
+            const matchesStorage = !storage || laptop.storage.includes(storage);
+            const matchesGpu = !gpu || laptop.gpu.includes(gpu);
             const matchesPrice = laptop.price <= maxPrice;
             const matchesCategory = category === 'all' || laptop.category === category;
             
-            return matchesSearch && matchesBrand && matchesPrice && matchesCategory;
+            return matchesSearch && matchesBrand && matchesRam && matchesStorage && matchesGpu && matchesPrice && matchesCategory;
         });
 
         this.renderProducts();
