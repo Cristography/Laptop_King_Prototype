@@ -79,7 +79,6 @@ class LaptopStore {
 
     init() {
         this.initTheme();
-        this.initCursorFollower();
         this.initScrollEffects();
         this.initSearch();
         this.initFilters();
